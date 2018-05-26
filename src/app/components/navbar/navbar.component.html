@@ -1,0 +1,24 @@
+<nav class="navbar__container">
+  
+  <section class="navbar__logo-container">
+    <img src="" alt="Web Logo" class="navbar__logo-img">
+  </section>
+  
+  <ul class="navbar__menu-list">
+    <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active-link">
+      <a [routerLink]="['/home']" class="navbar__menu-link">Home</a>
+    </li>
+    <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active-link">
+      <a [routerLink]="['/heroes']" class="navbar__menu-link">Heroes</a>
+    </li>
+    <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active-link">
+      <a [routerLink]="['/about']" class="navbar__menu-link">About</a>
+    </li>
+  </ul>
+  
+  <form action="" class="navbar__search-form">
+    <input type="text" class="navbar__search-input">
+    <button class="navbar__search-btn">Search</button>
+  </form>
+
+</nav>
