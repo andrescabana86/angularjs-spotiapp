@@ -1,35 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SpotifyService {
 
-  private spotifyServerUrl:string = 'https://spotify-get-token.herokuapp.com/spotify'
-  private clientId:string = '752e887fe0244daaae54efc04e60c746'
-  private clientSecret:string = '5018b1f759fc4f8ea6f9f6393bb1db17'
-  private apiTokenUrl = `${this.spotifyServerUrl}/${this.clientId}/${this.clientSecret}`
-  private token:string = ''
-  private tokenPromise = null
   private spotifyApiUri = 'https://api.spotify.com/v1'
-  
-  constructor(private _http:HttpClient) {
-    this.tokenPromise = this.getNewToken()
+  private releases = new BehaviorSubject<Object[]>([])
+  private releasesObservable = this.releases.asObservable()
+
+  constructor(
+    private _http:HttpClient,
+    private _authService:AuthService
+  ) {}
+
+  private updateReleases(updatedList): void {
+    this.releases.next(updatedList)
   }
 
-  getNewToken(callback?:Function) {
-    return this._http.get(this.apiTokenUrl)
-    .toPromise()
-    .then(newToken => {
-      this.token = `${newToken['token_type']} ${newToken['access_token']}`
+  public getNewReleases(): Observable<Object[]> {
+    const url = `${this.spotifyApiUri}/browse/new-releases`
+    const headers = new HttpHeaders({ 'Authorization': this._authService.getToken() })
+    this._http.get(url, { headers })
+    .map((releases:any) => {
+      const items = releases.albums.items
+      return items.map(album => {
+        return {
+          image: album.images[0].url,
+          name: album.name,
+          release: album.release_date,
+          link: album.external_urls.spotify
+        }
+      })
+    }).subscribe(releases => {
+      this.updateReleases(releases)
     })
-  }
-
-  getNewReleases() {
-    return this.tokenPromise
-    .then(() => {
-      const url = `${this.spotifyApiUri}/browse/new-releases`
-      const headers = new HttpHeaders({ 'Authorization': this.token })
-      return this._http.get(url, { headers })
-    })
+    return this.releasesObservable
   }
 }

@@ -5,10 +5,10 @@
   </section>
   
   <ul class="navbar__menu-list">
-    <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active-link">
+    <li class="navbar__menu-item" [routerLinkActive]="['navbar__menu-item--active-link']">
       <a [routerLink]="['/home']" class="navbar__menu-link">Home</a>
     </li>
-    <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active-link">
+    <li class="navbar__menu-item" [routerLinkActive]="['navbar__menu-item--active-link']">
       <a [routerLink]="['/search']" class="navbar__menu-link">Search</a>
     </li>
   </ul>

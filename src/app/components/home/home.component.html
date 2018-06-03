@@ -1,3 +1,20 @@
-<p>
-  home works!
-</p>
+<section class="home__container">
+
+  <article class="home__album"
+    *ngFor="let album of releases">
+    <picture class="home__album-picture">
+      <img [src]="album.image" alt="" class="home__album-image">
+    </picture>
+    <section class="home__album-information">
+      <label class="home__album-title-label" for="home__album-title">Album:</label>
+      <h1 class="home__album-title">{{ album.name }}</h1>
+      <label class="home__album-release-date-label" for="home__album-release-date">Release:</label>
+      <h4 class="home__album-release-date">{{ album.release }}</h4>
+      <a class="home__album-play"
+        [href]="album.link"
+        title="Open in browser"
+      ></a>
+    </section>
+  </article>
+
+</section>

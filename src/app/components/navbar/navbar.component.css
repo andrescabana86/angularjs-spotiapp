@@ -24,18 +24,18 @@
   padding: 0px 40px;
 }
 
-.navbar__menu-list .navbar__menu-item {
+.navbar__menu-item {
   margin: 8px 16px;
   font-size: 1.25em;
   cursor: pointer;
 }
 
-.navbar__menu-list .navbar__menu-item .navbar__menu-link {
+.navbar__menu-link {
   color: white;
   text-decoration: none;
 }
 
-.navbar__menu-list .navbar__menu-item:hover .navbar__menu-link,
-.navbar__menu-list .navbar__menu-item--active .navbar__menu-link {
+.navbar__menu-item:hover .navbar__menu-link,
+.navbar__menu-item--active-link .navbar__menu-link {
   font-weight: bold;
 }
