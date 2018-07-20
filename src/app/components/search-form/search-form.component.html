@@ -1,0 +1,18 @@
+<form [FormGroup]="searchForm"
+  (ngSubmit)="searchByArtist"
+  class="search__form" novalidate>
+
+  <fieldset class="search__form-field">
+
+    <input type="text"
+      class="search__form-input"
+      formControlName="email">
+
+    <button class="search__form-submit-btn"
+      type="submit">
+      Search
+    </button>
+
+  </fieldset>
+
+</form>
